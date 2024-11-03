@@ -1,0 +1,24 @@
+{
+    "name": "christophlehmann/route-cache",
+    "description": "Cache slug field values for re-use in PersistedAliasMapper to have less database lookups",
+    "type": "typo3-cms-extension",
+    "license": [
+        "GPL-2.0-or-later"
+    ],
+    "keywords": [
+        "performance"
+    ],
+    "require": {
+        "typo3/cms-core": "^12.4 || ^13.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lemming\\RouteCache\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "route_cache"
+        }
+    }
+}

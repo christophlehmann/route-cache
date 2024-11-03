@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Lemming\RouteCache\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+  Lemming\RouteCache\EventListener\AfterRecordLanguageOverlayEventListener:
+    tags:
+      -
+        name: event.listener
+        identifier: Lemming/routecache/after-record-language-overlay-event-listener
+        event: TYPO3\CMS\Core\Domain\Event\AfterRecordLanguageOverlayEvent
