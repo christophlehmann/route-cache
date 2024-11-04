@@ -24,7 +24,7 @@ final class AfterRecordLanguageOverlayEventListener
     public function populateSlugCacheEntry(AfterRecordLanguageOverlayEvent $event): void
     {
         $table = $event->getTable();
-        if ($this->isFrontendRequest() && $table !== 'tt_content') {
+        if ($table !== 'tt_content' && $table !== 'pages' && $this->isFrontendRequest()) {
             $slugFieldName = $this->getSlugFieldName($table);
             if ($slugFieldName) {
                 $languageAspect = $event->getLanguageAspect();
