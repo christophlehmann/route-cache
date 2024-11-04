@@ -17,7 +17,7 @@ final class AfterRecordLanguageOverlayEventListener
         $this->runtimeCache = $cacheManager->getCache('runtime');
     }
 
-    public function __invoke(AfterRecordLanguageOverlayEvent $event): void
+    public function populateSlugCacheEntry(AfterRecordLanguageOverlayEvent $event): void
     {
         $table = $event->getTable();
         if ($table !== 'tt_content') {

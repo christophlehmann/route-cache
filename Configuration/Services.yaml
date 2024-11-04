@@ -12,3 +12,4 @@ services:
         name: event.listener
         identifier: Lemming/routecache/after-record-language-overlay-event-listener
         event: TYPO3\CMS\Core\Domain\Event\AfterRecordLanguageOverlayEvent
+        method: populateSlugCacheEntry
