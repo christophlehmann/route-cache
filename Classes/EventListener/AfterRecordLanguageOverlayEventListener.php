@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lemming\RouteCache\EventListener;
 
+use Lemming\RouteCache\Factory\CacheIdentifierFactory;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Domain\Event\AfterRecordLanguageOverlayEvent;
@@ -25,16 +26,7 @@ final class AfterRecordLanguageOverlayEventListener
             if ($slugFieldName) {
                 $languageAspect = $event->getLanguageAspect();
                 $record = $event->overlayingWasAttempted() ? $event->getLocalizedRecord() : $event->getRecord();
-                $cacheIdentifier = implode(
-                    '__', [
-                    'routeCache',
-                    $table,
-                    $record['uid'],
-                    $languageAspect->getId(),
-                    $languageAspect->getContentId(),
-                    $languageAspect->getOverlayType(),
-                    implode('_', $languageAspect->getFallbackChain())
-                ]);
+                $cacheIdentifier = CacheIdentifierFactory::createCacheIdentifier($table, $record['uid'], $languageAspect);
                 $this->runtimeCache->set($cacheIdentifier, ['result' => $record[$slugFieldName]]);
             }
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lemming\RouteCache\Routing;
 
+use Lemming\RouteCache\Factory\CacheIdentifierFactory;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Routing\Aspect\PersistedAliasMapper;
@@ -15,21 +16,15 @@ class CachingPersistedAliasMapper extends PersistedAliasMapper
     {
         $cache = $this->getRuntimeCache();
         $languageAspect = $this->getLanguageAspect();
-        $cacheIdentifier = implode('__', [
-            'routeCache',
-            $this->tableName,
-            $value,
-            $languageAspect->getId(),
-            $languageAspect->getContentId(),
-            $languageAspect->getOverlayType(),
-            implode('_', $languageAspect->getFallbackChain())
-        ]);
+        $cacheIdentifier = CacheIdentifierFactory::createCacheIdentifier($this->tableName, $value, $languageAspect);
 
         if ($cacheItem = $cache->get($cacheIdentifier)) {
+            // Cache hit
             $result = $cacheItem['result'];
             return $this->purgeRouteValuePrefix($result);
         }
 
+        // Cache miss
         $result = parent::generate($value);
         $cache->set($cacheIdentifier, ['result' => $result]);
         return $result;
