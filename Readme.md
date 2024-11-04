@@ -1,7 +1,11 @@
 # TYPO3 Route cache
 
-Implements a cache of slug field values for re-use in PersistedAliasMapper to have less database lookups.
+This is a cache implementation for record slugs.
 
-## Background
+Cache entries are created after language overlaying, basically what's done with every record when it's fetched from
+database. Cache lookups are done in the PersistedAliasMapper during link generation. Successful cache lookups (hits)
+reduce the amount of database queries - record are not fetched and overlayed again in the PersistedAliasMapper.
 
-LinkViewHelpers turn Extbase entities into uids which are then fetched and overlayed again in the PersistedAliasMapper. 
+## ToDos
+
+* [ ] Slug updates in FE require a cache invalidation 

@@ -1,12 +1,13 @@
 {
     "name": "christophlehmann/route-cache",
-    "description": "Cache slug field values for re-use in PersistedAliasMapper to have less database lookups",
+    "description": "A cache implementation for record slugs that prevents fetching and overlaying records again in the PersistedAliasMapper",
     "type": "typo3-cms-extension",
     "license": [
         "GPL-2.0-or-later"
     ],
     "keywords": [
-        "performance"
+        "performance",
+        "cache"
     ],
     "require": {
         "typo3/cms-core": "^12.4 || ^13.4"
