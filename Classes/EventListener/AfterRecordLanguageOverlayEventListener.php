@@ -29,8 +29,10 @@ final class AfterRecordLanguageOverlayEventListener
             if ($slugFieldName) {
                 $languageAspect = $event->getLanguageAspect();
                 $record = $event->overlayingWasAttempted() ? $event->getLocalizedRecord() : $event->getRecord();
-                $cacheIdentifier = CacheIdentifierFactory::createCacheIdentifier($table, $record['uid'], $languageAspect);
-                $this->runtimeCache->set($cacheIdentifier, ['result' => $record[$slugFieldName]]);
+                if (is_array($record)) {
+                    $cacheIdentifier = CacheIdentifierFactory::createCacheIdentifier($table, $record['uid'], $languageAspect);
+                    $this->runtimeCache->set($cacheIdentifier, ['result' => $record[$slugFieldName]]);
+                }
             }
         }
     }
